@@ -4,7 +4,8 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "start": "bun index.ts"
+    "start": "bun index.ts",
+    "test": "bun test"
   },
   "devDependencies": {
     "bun-types": "latest"
