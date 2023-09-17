@@ -1,9 +1,14 @@
-export type Severity = "informational" | "low" | "medium" | "high" | "critical";
+export type Severity =
+  | "informational"
+  | "low"
+  | "medium"
+  | "high"
+  | "optimization";
 
 export const Severity = {
   Informational: "informational" as Severity,
   Low: "low" as Severity,
   Medium: "medium" as Severity,
   High: "high" as Severity,
-  Critical: "critical" as Severity,
+  Optimization: "optimization" as Severity,
 } as const;
