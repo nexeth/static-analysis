@@ -22,8 +22,6 @@ describe("SolidityParserService", () => {
 
   describe("parseFile", () => {
     test("should parse a Solidity file and return the corresponding AST", () => {
-      const path = "./MyContract.sol";
-
       const ast = SolidityParserService.parseFile(TEST_CONTRACT_FILE);
 
       expect(ast).toBeDefined();
@@ -59,7 +57,6 @@ describe("SolidityParserService", () => {
       expect(stateVariables).toBeDefined();
       expect(stateVariables.length).toBeGreaterThan(0);
 
-      console.log(stateVariables);
       const _stateVariable = stateVariables[0];
       expect(_stateVariable.type).toBe("StateVariableDeclaration");
       expect(_stateVariable.variables[0].type).toBe("VariableDeclaration");
