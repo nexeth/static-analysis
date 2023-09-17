@@ -59,6 +59,7 @@ describe("SolidityParserService", () => {
       expect(stateVariables).toBeDefined();
       expect(stateVariables.length).toBeGreaterThan(0);
 
+      console.log(stateVariables);
       const _stateVariable = stateVariables[0];
       expect(_stateVariable.type).toBe("StateVariableDeclaration");
       expect(_stateVariable.variables[0].type).toBe("VariableDeclaration");

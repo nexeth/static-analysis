@@ -14,6 +14,6 @@ export abstract class AbstractDetector implements Detector {
 
   abstract detect(
     code: ParsedContract,
-    config: AnalysisConfig
+    config?: AnalysisConfig
   ): Promise<DetectorViolation[]>;
 }

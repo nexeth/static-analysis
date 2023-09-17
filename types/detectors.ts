@@ -39,6 +39,6 @@ export interface Detector {
    */
   detect(
     code: ParsedContract,
-    config: AnalysisConfig
+    config?: AnalysisConfig
   ): Promise<DetectorViolation[]>;
 }

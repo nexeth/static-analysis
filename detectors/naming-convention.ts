@@ -18,7 +18,7 @@ export class NamingConventionDetector implements AbstractDetector {
 
   async detect(
     parsedContract: ParsedContract,
-    config: AnalysisConfig
+    config: AnalysisConfig = {}
   ): Promise<DetectorViolation[]> {
     const violations: DetectorViolation[] = [];
 
@@ -28,13 +28,90 @@ export class NamingConventionDetector implements AbstractDetector {
 
     const contracts = SolidityParserService.getContracts(parsedContract);
 
-    /**
-     * Check contract name casing
-     */
-    contracts.map((contract) => {
+    contracts.forEach((contract) => {
       const contractName = contract.name;
       if (!this.isCapWords(contractName)) {
         addViolation("contract", contractName, "CapWords");
+      }
+    });
+
+    const events = SolidityParserService.getEvents(contracts);
+    events.forEach((event) => {
+      if (!this.isCapWords(event.name)) {
+        addViolation("event", event.name, "CapWords");
+      }
+    });
+
+    const structs = SolidityParserService.getStructs(contracts);
+    structs.forEach((struct) => {
+      if (!this.isCapWords(struct.name)) {
+        addViolation("struct", struct.name, "CapWords");
+      }
+    });
+
+    const functions = SolidityParserService.getFunctions(contracts);
+    functions.forEach((function_) => {
+      if (function_.isConstructor) return;
+      if (!function_.name) return;
+      if (!this.isMixedCase(function_.name)) {
+        if (
+          ["internal", "private"].includes(function_.visibility) &&
+          this.isMixedCaseWithUnderscore(function_.name)
+        ) {
+          return;
+        }
+        if (function_.name.startsWith("echidna_")) return;
+        if (function_.name.startsWith("crytic_")) return;
+
+        addViolation("function", function_.name, "mixedCase");
+      }
+
+      function_.parameters.forEach((parameter) => {
+        if (!parameter.name) return;
+        if (this.isMixedCaseWithUnderscore(parameter.name)) return;
+        addViolation("parameter", parameter.name, "mixedCase");
+      });
+    });
+
+    const variables = SolidityParserService.getStateVariables(contracts);
+    variables.forEach((variableDeclaration) => {
+      variableDeclaration.variables.forEach((variable) => {
+        if (!variable.name) return;
+        if (this.isAvoidNames(variable.name)) {
+          addViolation("variable", variable.name, "avoidNames");
+        }
+        if (variable.isDeclaredConst) {
+          // ERC20 Compatible variable names
+          if (["symbol", "name", "decimals"].includes(variable.name)) return;
+          // Public constants are allowed any naming scheme
+          if (variable.visibility === "public") return;
+
+          if (!this.isUpperCaseWithUnderscores(variable.name)) {
+            addViolation("variable", variable.name, "UPPER_CASE");
+          }
+        } else {
+          if (
+            variable.visibility === "private" &&
+            this.isMixedCaseWithUnderscore(variable.name)
+          ) {
+            return;
+          } else if (this.isMixedCase(variable.name)) return;
+          addViolation("variable", variable.name, "mixedCase");
+        }
+      });
+    });
+
+    const enums = SolidityParserService.getEnums(contracts);
+    enums.forEach((enum_) => {
+      if (!this.isCapWords(enum_.name)) {
+        addViolation("enum", enum_.name, "CapWords");
+      }
+    });
+
+    const modifiers = SolidityParserService.getModifiers(contracts);
+    modifiers.forEach((modifier) => {
+      if (!this.isMixedCase(modifier.name)) {
+        addViolation("modifier", modifier.name, "mixedCase");
       }
     });
 
