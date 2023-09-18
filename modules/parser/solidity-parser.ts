@@ -11,7 +11,7 @@ import {
   StructDefinition,
 } from "@solidity-parser/parser/dist/src/ast-types";
 
-import { ParsedContract } from "@/types";
+import { ParsedContracts } from "@/types";
 
 /**
  * A service for parsing Solidity code and files into an AST.
@@ -41,7 +41,7 @@ export class SolidityParser {
    * @param ast The Solidity AST to search for contract definitions.
    * @returns An array of all contract definitions in the given Solidity AST.
    */
-  public static getContracts(ast: ParsedContract): ContractDefinition[] {
+  public static getContracts(ast: ParsedContracts): ContractDefinition[] {
     return ast.children.filter(
       (node) => node.type === "ContractDefinition"
     ) as ContractDefinition[];
@@ -52,15 +52,11 @@ export class SolidityParser {
    * @param ast The Solidity AST to search for state variables.
    * @returns An array of all state variables in the given Solidity AST.
    */
-  public static getStateVariables(
-    contracts: ContractDefinition[]
-  ): StateVariableDeclaration[] {
+  public static getStateVariables(contracts: ContractDefinition[]): StateVariableDeclaration[] {
     return contracts
       .map((contract) => contract.subNodes)
       .flat()
-      .filter(
-        (node) => node.type === "StateVariableDeclaration"
-      ) as StateVariableDeclaration[];
+      .filter((node) => node.type === "StateVariableDeclaration") as StateVariableDeclaration[];
   }
 
   /**
@@ -68,15 +64,11 @@ export class SolidityParser {
    * @param contracts The Solidity AST to search for function definitions.
    * @returns An array of all function definitions in the given Solidity AST.
    */
-  public static getFunctions(
-    contracts: ContractDefinition[]
-  ): FunctionDefinition[] {
+  public static getFunctions(contracts: ContractDefinition[]): FunctionDefinition[] {
     return contracts
       .map((contract) => contract.subNodes)
       .flat()
-      .filter(
-        (node) => node.type === "FunctionDefinition"
-      ) as FunctionDefinition[];
+      .filter((node) => node.type === "FunctionDefinition") as FunctionDefinition[];
   }
 
   /**
@@ -96,9 +88,7 @@ export class SolidityParser {
    * @param contracts The Solidity AST to search for struct definitions.
    * @returns An array of all struct definitions in the given Solidity AST.
    */
-  public static getStructs(
-    contracts: ContractDefinition[]
-  ): StructDefinition[] {
+  public static getStructs(contracts: ContractDefinition[]): StructDefinition[] {
     return contracts
       .map((contract) => contract.subNodes)
       .flat()
@@ -122,14 +112,28 @@ export class SolidityParser {
    * @param contracts The Solidity AST to search for modifier definitions.
    * @returns An array of all modifier definitions in the given Solidity AST.
    */
-  public static getModifiers(
-    contracts: ContractDefinition[]
-  ): ModifierDefinition[] {
+  public static getModifiers(contracts: ContractDefinition[]): ModifierDefinition[] {
     return contracts
       .map((contract) => contract.subNodes)
       .flat()
-      .filter(
-        (node) => node.type === "ModifierDefinition"
-      ) as ModifierDefinition[];
+      .filter((node) => node.type === "ModifierDefinition") as ModifierDefinition[];
+  }
+
+  /**
+   *
+   * @param contract The contract to search for inherited contracts.
+   * @param contracts The Solidity AST to search for inherited contracts.
+   */
+  public static getInheritedContracts(
+    contract: ContractDefinition,
+    contracts: ContractDefinition[]
+  ): ContractDefinition[] {
+    const inheritedContractNames = contract.baseContracts.map(
+      (baseContract) => baseContract.baseName.namePath
+    );
+    return contracts.filter((node) => {
+      if (node.type !== "ContractDefinition") return false;
+      return inheritedContractNames.includes(node.name);
+    });
   }
 }

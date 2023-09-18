@@ -1,6 +1,6 @@
 import { AbstractDetector } from "./abstract-detector";
 
-import { DetectorViolation, ParsedContract, Severity } from "@/types";
+import { DetectorViolation, ParsedContracts, Severity } from "@/types";
 import { AnalyserConfig } from "@/types/config";
 
 export const ARBITRARY_SEND_ETH_DETECTOR = "arbitrary-send-eth";
@@ -11,7 +11,8 @@ export class ArbitrarySendEthDetector implements AbstractDetector {
   public description = "Detects arbitrary send of ETH";
   public severity = Severity.High;
 
-  detect(code: ParsedContract, config: AnalyserConfig): Promise<DetectorViolation[]> {
+  detect(code: ParsedContracts, config: AnalyserConfig): Promise<DetectorViolation[]> {
+    // TODO implement this
     console.log(code, config);
     throw new Error("Method not implemented.");
   }

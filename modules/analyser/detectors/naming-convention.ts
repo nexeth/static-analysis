@@ -1,7 +1,7 @@
 import { AbstractDetector } from "./abstract-detector";
 
 import { SolidityParser } from "@/modules";
-import { Severity, ParsedContract, DetectorViolation } from "@/types";
+import { Severity, ParsedContracts, DetectorViolation } from "@/types";
 
 export const NAMING_CONVENTION_DETECTOR = "naming-convention";
 
@@ -12,13 +12,13 @@ export class NamingConventionDetector implements AbstractDetector {
   public severity = Severity.Informational;
 
   async detect(
-    parsedContract: ParsedContract
+    parsedContract: ParsedContracts
     // config: AnalyserConfig = {}
   ): Promise<DetectorViolation[]> {
     const violations: DetectorViolation[] = [];
 
-    const addViolation = (target: string, name: string, convention: string) => {
-      violations.push({ target, name, convention });
+    const addViolation = (target: string, name: string, violation: string) => {
+      violations.push({ target, name, violation });
     };
 
     const contracts = SolidityParser.getContracts(parsedContract);

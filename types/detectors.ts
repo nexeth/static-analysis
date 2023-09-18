@@ -3,12 +3,21 @@ import * as parser from "@solidity-parser/parser";
 import { AnalyserConfig } from "./config";
 import { Severity } from "./errors";
 
-export type ParsedContract = ReturnType<typeof parser.parse>;
+export type ParsedContracts = ReturnType<typeof parser.parse>;
 
 export interface DetectorViolation {
+  /**
+   * The type of the target of the violation.
+   */
   target: string;
+  /**
+   * The name of the target of the violation.
+   */
   name: string;
-  convention: string;
+  /**
+   * The convention that was violated. This is used to inform the error message
+   */
+  violation: string;
 }
 
 export interface Detector {
@@ -38,5 +47,5 @@ export interface Detector {
    * @param config The configuration to use for the analysis.
    * @returns Violations of the
    */
-  detect(code: ParsedContract, config?: AnalyserConfig): Promise<DetectorViolation[]>;
+  detect(code: ParsedContracts, config?: AnalyserConfig): Promise<DetectorViolation[]>;
 }

@@ -56,7 +56,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("contract");
       expect(violation.name).toBe("myContract");
-      expect(violation.convention).toBe("CapWords");
+      expect(violation.violation).toBe("CapWords");
     });
 
     test("should return a violation for an invalid event name", async () => {
@@ -72,7 +72,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("event");
       expect(violation.name).toBe("myEvent");
-      expect(violation.convention).toBe("CapWords");
+      expect(violation.violation).toBe("CapWords");
     });
 
     test("should return a violation for an invalid struct name", async () => {
@@ -88,7 +88,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("struct");
       expect(violation.name).toBe("myStruct");
-      expect(violation.convention).toBe("CapWords");
+      expect(violation.violation).toBe("CapWords");
     });
 
     test("should return a violation for an invalid enum name", async () => {
@@ -104,7 +104,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("enum");
       expect(violation.name).toBe("myEnum");
-      expect(violation.convention).toBe("CapWords");
+      expect(violation.violation).toBe("CapWords");
     });
 
     test("should return a violation for an invalid modifier name", async () => {
@@ -120,7 +120,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("modifier");
       expect(violation.name).toBe("MyModifier");
-      expect(violation.convention).toBe("mixedCase");
+      expect(violation.violation).toBe("mixedCase");
     });
 
     test("should return a violation for an invalid variable name (casing)", async () => {
@@ -136,7 +136,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("variable");
       expect(violation.name).toBe("MyVariable");
-      expect(violation.convention).toBe("mixedCase");
+      expect(violation.violation).toBe("mixedCase");
     });
 
     test("should return a violation for an invalid variable name (avoidNames)", async () => {
@@ -152,7 +152,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("variable");
       expect(violation.name).toBe("l");
-      expect(violation.convention).toBe("avoidNames");
+      expect(violation.violation).toBe("avoidNames");
     });
 
     test("should return a violation for a public variable name with invalid casing", async () => {
@@ -167,7 +167,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("variable");
       expect(violation.name).toBe("MyVariable");
-      expect(violation.convention).toBe("mixedCase");
+      expect(violation.violation).toBe("mixedCase");
     });
 
     test("should return no violation for an ERC20 standard constant", async () => {
@@ -206,7 +206,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("variable");
       expect(violation.name).toBe("myConstant");
-      expect(violation.convention).toBe("UPPER_CASE");
+      expect(violation.violation).toBe("UPPER_CASE");
     });
 
     test("should return a violation for a private variable with invalid casing", async () => {
@@ -221,7 +221,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("variable");
       expect(violation.name).toBe("MY_Variable");
-      expect(violation.convention).toBe("mixedCase");
+      expect(violation.violation).toBe("mixedCase");
     });
 
     test("should return no violation for a private variable with valid casing", async () => {
@@ -267,7 +267,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("function");
       expect(violation.name).toBe("MyFunction");
-      expect(violation.convention).toBe("mixedCase");
+      expect(violation.violation).toBe("mixedCase");
     });
 
     test("should not return a violation for an internal function with invalid casing if it starts with underscore", async () => {
@@ -321,7 +321,7 @@ describe("NamingConventionDetector", () => {
       const violation = violations[0];
       expect(violation.target).toBe("parameter");
       expect(violation.name).toBe("MyParameter");
-      expect(violation.convention).toBe("mixedCase");
+      expect(violation.violation).toBe("mixedCase");
     });
 
     test("should allow for a parameter if it starts with an underscore", async () => {

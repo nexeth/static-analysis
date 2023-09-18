@@ -140,4 +140,22 @@ describe("SolidityParserService", () => {
       expect(_modifier.name).toBe("myModifier");
     });
   });
+
+  describe("getInheritedContracts", () => {
+    test("should return an array of all contracts which are inherited by the given contract", () => {
+      const code = `
+        interface TestInterfaceA {}
+        interface TestInterfaceB {}
+        contract MyContract is TestInterfaceA, TestInterfaceB {}
+      `;
+
+      const ast = SolidityParser.parse(code);
+      const contracts = SolidityParser.getContracts(ast);
+      const contract = contracts.find((_contract) => _contract.name === "MyContract")!;
+      expect(contract).toBeDefined();
+      const inheritedContracts = SolidityParser.getInheritedContracts(contract, contracts);
+      expect(inheritedContracts).toBeDefined();
+      expect(inheritedContracts.length).toBeGreaterThan(0);
+    });
+  });
 });
