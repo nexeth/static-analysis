@@ -1,8 +1,8 @@
-name: eslint
+name: 🧪 Test Coverage
 on: [push]
 
 jobs:
-  eslint:
+  integration:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Checkout Repo
@@ -13,8 +13,8 @@ jobs:
         with:
           bun-version: latest
 
-      - name: 🧶 Install Packages with Yarn
+      - name: 📦 Install Dependencies
         run: bun install
 
-      - name: 🐍 ESLint
-        run: bun lint
+      - name: 🧪 Run Test Coverage
+        run: bun test --coverage
