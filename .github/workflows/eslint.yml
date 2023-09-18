@@ -1,4 +1,4 @@
-name: eslint
+name: 🚨 ESLint
 on: [push]
 
 jobs:
@@ -13,8 +13,8 @@ jobs:
         with:
           bun-version: latest
 
-      - name: 🧶 Install Packages with Yarn
+      - name: 📦 Install Dependencies
         run: bun install
 
-      - name: 🐍 ESLint
+      - name: 🚨 ESLint
         run: bun lint

@@ -12,6 +12,7 @@ export class ArbitrarySendEthDetector implements AbstractDetector {
   public severity = Severity.High;
 
   detect(code: ParsedContract, config: AnalyserConfig): Promise<DetectorViolation[]> {
+    console.log(code, config);
     throw new Error("Method not implemented.");
   }
 }

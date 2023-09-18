@@ -7,7 +7,7 @@
   "scripts": {
     "start": "bun index.ts",
     "test": "bun test",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint . ",
     "scripts:analyse": "bun scripts/analyse.ts"
   },
   "dependencies": {
