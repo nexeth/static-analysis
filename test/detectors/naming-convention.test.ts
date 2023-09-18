@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 
 import { SolidityParser } from "@/modules";
 import { NAMING_CONVENTION_DETECTOR, NamingConventionDetector } from "@/modules/analyser/detectors/naming-convention";
-import { Severity } from "@/types";
+import { SeverityValue } from "@/types";
 
 describe("NamingConventionDetector", () => {
   const detector = new NamingConventionDetector();
@@ -27,7 +27,7 @@ describe("NamingConventionDetector", () => {
 
   describe("severity", () => {
     test("should return the correct detector severity", () => {
-      expect(detector.severity).toBe(Severity.Informational);
+      expect(detector.severity).toBe(SeverityValue.Informational);
     });
   });
 

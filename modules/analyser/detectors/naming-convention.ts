@@ -1,7 +1,7 @@
 import { AbstractDetector } from "./abstract-detector";
 
 import { SolidityParser } from "@/modules";
-import { Severity, ParsedContracts, DetectorViolation } from "@/types";
+import { SeverityValue, ParsedContracts, DetectorViolation } from "@/types";
 
 export const NAMING_CONVENTION_DETECTOR = "naming-convention";
 
@@ -9,7 +9,7 @@ export class NamingConventionDetector implements AbstractDetector {
   public id = NAMING_CONVENTION_DETECTOR;
   public title = "Solidity Naming Convention Checker";
   public description = "Checks if Solidity naming conventions are followed";
-  public severity = Severity.Informational;
+  public severity = SeverityValue.Informational;
 
   async detect(
     parsedContract: ParsedContracts

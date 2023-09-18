@@ -3,7 +3,7 @@ import { ContractDefinition, FunctionDefinition } from "@solidity-parser/parser/
 import { AbstractDetector } from "./abstract-detector";
 
 import { SolidityParser } from "@/modules";
-import { DetectorViolation, ParsedContracts, Severity } from "@/types";
+import { DetectorViolation, ParsedContracts, SeverityValue } from "@/types";
 
 export const UNIMPLEMENTED_FUNCTION_DETECTOR = "unimplemented-function";
 
@@ -11,7 +11,7 @@ export class UnimplementedFunctionDetector implements AbstractDetector {
   public id = UNIMPLEMENTED_FUNCTION_DETECTOR;
   public title = "Unimplemented Function";
   public description = "Detects unimplemented functions on derived contracts";
-  public severity = Severity.Informational;
+  public severity = SeverityValue.Informational;
 
   detect(
     code: ParsedContracts

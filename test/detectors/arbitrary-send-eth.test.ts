@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 
 import { ARBITRARY_SEND_ETH_DETECTOR, ArbitrarySendEthDetector } from "@/modules/analyser/detectors/arbitray-send-eth";
-import { Severity } from "@/types";
+import { SeverityValue } from "@/types";
 
 describe("ArbitrarySendEthDetector", () => {
   const detector = new ArbitrarySendEthDetector();
@@ -26,7 +26,7 @@ describe("ArbitrarySendEthDetector", () => {
 
   describe("severity", () => {
     test("should return the correct detector severity", () => {
-      expect(detector.severity).toBe(Severity.High);
+      expect(detector.severity).toBe(SeverityValue.High);
     });
   });
 

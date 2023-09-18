@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract ViolationContract {
+interface UnimplementedInterface {
+    function unimplementedFunction() external;
+}
+
+contract ViolationContract is UnimplementedInterface {
     // State variables with naming convention violations
     address public Address_variable; // Should use mixedCase
     uint256 public _underscore_variable; // Should not start with an underscore

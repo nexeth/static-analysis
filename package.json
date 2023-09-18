@@ -8,11 +8,14 @@
     "start": "bun index.ts",
     "test": "bun test",
     "lint": "eslint . ",
-    "scripts:analyse": "bun scripts/analyse.ts"
+    "nexeth": "bun commands/nexeth.ts",
+    "nexeth:test-contract": "bun nexeth analyse ./test/contracts/ViolationContract.sol"
   },
   "dependencies": {
     "@solidity-parser/parser": "^0.16.1",
-    "pino": "^8.15.1"
+    "commander": "^11.0.0",
+    "pino": "^8.15.1",
+    "pino-pretty": "^10.2.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.7.0",

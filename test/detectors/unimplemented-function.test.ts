@@ -5,7 +5,7 @@ import {
   UNIMPLEMENTED_FUNCTION_DETECTOR,
   UnimplementedFunctionDetector,
 } from "@/modules/analyser/detectors/unimplemented-function";
-import { Severity } from "@/types";
+import { SeverityValue } from "@/types";
 
 describe("UnimplementedFunctionDetector", () => {
   const detector = new UnimplementedFunctionDetector();
@@ -30,7 +30,7 @@ describe("UnimplementedFunctionDetector", () => {
 
   describe("severity", () => {
     test("should return the correct detector severity", () => {
-      expect(detector.severity).toBe(Severity.Informational);
+      expect(detector.severity).toBe(SeverityValue.Informational);
     });
   });
 
