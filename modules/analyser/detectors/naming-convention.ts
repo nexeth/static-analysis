@@ -48,10 +48,7 @@ export class NamingConventionDetector implements AbstractDetector {
       if (function_.isConstructor) return;
       if (!function_.name) return;
       if (!this.isMixedCase(function_.name)) {
-        if (
-          ["internal", "private"].includes(function_.visibility) &&
-          this.isMixedCaseWithUnderscore(function_.name)
-        ) {
+        if (["internal", "private"].includes(function_.visibility) && this.isMixedCaseWithUnderscore(function_.name)) {
           return;
         }
         if (function_.name.startsWith("echidna_")) return;

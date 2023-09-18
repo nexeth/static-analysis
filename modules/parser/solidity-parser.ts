@@ -42,9 +42,7 @@ export class SolidityParser {
    * @returns An array of all contract definitions in the given Solidity AST.
    */
   public static getContracts(ast: ParsedContracts): ContractDefinition[] {
-    return ast.children.filter(
-      (node) => node.type === "ContractDefinition"
-    ) as ContractDefinition[];
+    return ast.children.filter((node) => node.type === "ContractDefinition") as ContractDefinition[];
   }
 
   /**
@@ -128,9 +126,7 @@ export class SolidityParser {
     contract: ContractDefinition,
     contracts: ContractDefinition[]
   ): ContractDefinition[] {
-    const inheritedContractNames = contract.baseContracts.map(
-      (baseContract) => baseContract.baseName.namePath
-    );
+    const inheritedContractNames = contract.baseContracts.map((baseContract) => baseContract.baseName.namePath);
     return contracts.filter((node) => {
       if (node.type !== "ContractDefinition") return false;
       return inheritedContractNames.includes(node.name);

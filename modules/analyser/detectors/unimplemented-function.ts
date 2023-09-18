@@ -50,9 +50,7 @@ export class UnimplementedFunctionDetector implements AbstractDetector {
         if (inheritedFunction.isConstructor) return;
         if (inheritedFunction.isFallback) return;
 
-        let isImplemented = implementedFunctions.some(
-          (func) => func.name === inheritedFunction.name
-        );
+        let isImplemented = implementedFunctions.some((func) => func.name === inheritedFunction.name);
 
         if (!isImplemented && this.matchStateVariable(contract, inheritedFunction)) {
           isImplemented = true;

@@ -1,9 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import {
-  ARBITRARY_SEND_ETH_DETECTOR,
-  ArbitrarySendEthDetector,
-} from "@/modules/analyser/detectors/arbitray-send-eth";
+import { ARBITRARY_SEND_ETH_DETECTOR, ArbitrarySendEthDetector } from "@/modules/analyser/detectors/arbitray-send-eth";
 import { Severity } from "@/types";
 
 describe("ArbitrarySendEthDetector", () => {

@@ -1,10 +1,7 @@
 import { describe, expect, test } from "bun:test";
 
 import { SolidityParser } from "@/modules";
-import {
-  NAMING_CONVENTION_DETECTOR,
-  NamingConventionDetector,
-} from "@/modules/analyser/detectors/naming-convention";
+import { NAMING_CONVENTION_DETECTOR, NamingConventionDetector } from "@/modules/analyser/detectors/naming-convention";
 import { Severity } from "@/types";
 
 describe("NamingConventionDetector", () => {
