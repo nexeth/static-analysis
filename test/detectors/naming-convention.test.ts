@@ -1,16 +1,13 @@
 import { describe, expect, test } from "bun:test";
-import { SolidityParserService } from "../../services";
+
 import {
   NAMING_CONVENTION_DETECTOR,
   NamingConventionDetector,
-} from "../../detectors/naming-convention";
-import { Severity } from "../../types";
-
-const TEST_CONTRACT_FILE = "test/contracts/ViolationContract.sol";
+} from "@/detectors/naming-convention";
+import { SolidityParserService } from "@/services";
+import { Severity } from "@/types";
 
 describe("NamingConventionDetector", () => {
-  const source = SolidityParserService.parseFile(TEST_CONTRACT_FILE);
-
   const detector = new NamingConventionDetector();
 
   describe("id", () => {

@@ -1,7 +1,9 @@
-import { describe, expect, test } from "bun:test";
-import { TestContract } from "./../contracts";
-import { SolidityParserService } from "../../services";
 import { ContractDefinition } from "@solidity-parser/parser/dist/src/ast-types";
+import { describe, expect, test } from "bun:test";
+
+import { SolidityParserService } from "../../services";
+
+import { TestContract } from "./../contracts";
 
 const TEST_CONTRACT_FILE = "test/contracts/SolidityParserContract.sol";
 

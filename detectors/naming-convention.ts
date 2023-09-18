@@ -1,12 +1,12 @@
+import { AbstractDetector } from "./abstract-detector";
+
+import { SolidityParserService } from "@/services";
 import {
-  Detector,
   Severity,
   ParsedContract,
   AnalysisConfig,
   DetectorViolation,
-} from "../types";
-import { SolidityParserService } from "../services";
-import { AbstractDetector } from "./abstract-detector";
+} from "@/types";
 
 export const NAMING_CONVENTION_DETECTOR = "naming-convention";
 
@@ -27,7 +27,6 @@ export class NamingConventionDetector implements AbstractDetector {
     };
 
     const contracts = SolidityParserService.getContracts(parsedContract);
-
     contracts.forEach((contract) => {
       const contractName = contract.name;
       if (!this.isCapWords(contractName)) {

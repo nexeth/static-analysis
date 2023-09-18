@@ -1,19 +1,25 @@
 {
-  "name": "static-analysis",
+  "name": "@nexeth/static-analysis",
   "module": "index.ts",
   "type": "module",
   "license": "MIT",
+  "author": "mfbevan",
   "scripts": {
     "start": "bun index.ts",
-    "test": "bun test"
-  },
-  "devDependencies": {
-    "bun-types": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "test": "bun test",
+    "lint": "eslint . --ext .ts"
   },
   "dependencies": {
     "@solidity-parser/parser": "^0.16.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "bun-types": "latest",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.28.1",
+    "typescript": "^5.2.2"
   }
 }

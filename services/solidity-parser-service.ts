@@ -1,6 +1,6 @@
-import * as parser from "@solidity-parser/parser";
 import * as fs from "fs";
-import { ParsedContract } from "../../types";
+
+import * as parser from "@solidity-parser/parser";
 import {
   ContractDefinition,
   EnumDefinition,
@@ -10,6 +10,8 @@ import {
   StateVariableDeclaration,
   StructDefinition,
 } from "@solidity-parser/parser/dist/src/ast-types";
+
+import { ParsedContract } from "@/types";
 
 /**
  * A service for parsing Solidity code and files into an AST.

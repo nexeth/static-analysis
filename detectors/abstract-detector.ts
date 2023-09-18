@@ -4,7 +4,7 @@ import {
   DetectorViolation,
   ParsedContract,
   Severity,
-} from "../types";
+} from "@/types";
 
 export abstract class AbstractDetector implements Detector {
   public abstract id: string;

@@ -1,6 +1,7 @@
+import * as parser from "@solidity-parser/parser";
+
 import { AnalysisConfig } from "./config";
 import { Severity } from "./errors";
-import * as parser from "@solidity-parser/parser";
 
 export type ParsedContract = ReturnType<typeof parser.parse>;
 

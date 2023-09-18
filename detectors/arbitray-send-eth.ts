@@ -1,11 +1,7 @@
-import {
-  Detector,
-  DetectorViolation,
-  ParsedContract,
-  Severity,
-} from "../types";
-import { AnalysisConfig } from "../types/config";
 import { AbstractDetector } from "./abstract-detector";
+
+import { DetectorViolation, ParsedContract, Severity } from "@/types";
+import { AnalysisConfig } from "@/types/config";
 
 export const ARBITRARY_SEND_ETH_DETECTOR = "arbitrary-send-eth";
 
