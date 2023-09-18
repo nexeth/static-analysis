@@ -17,13 +17,17 @@ import { ParsedContracts } from "@/types";
  * A service for parsing Solidity code and files into an AST.
  */
 export class SolidityParser {
+  private static config: parser.ParseOptions = {
+    loc: true,
+  };
+
   /**
    * Parses Solidity code and returns the corresponding AST.
    * @param code The Solidity code to parse.
    * @returns The parsed AST of the Solidity code.
    */
   public static parse(code: string) {
-    return parser.parse(code);
+    return parser.parse(code, this.config);
   }
 
   /**
@@ -33,7 +37,7 @@ export class SolidityParser {
    */
   public static parseFile(path: string) {
     const code = fs.readFileSync(path, "utf8");
-    return this.parse(code);
+    return parser.parse(code, this.config);
   }
 
   /**
