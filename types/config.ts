@@ -1,3 +1,3 @@
-export interface AnalysisConfig {
+export interface AnalyserConfig {
   disabledDetectors?: string[];
 }

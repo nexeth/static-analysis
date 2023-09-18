@@ -3,8 +3,8 @@ import { describe, expect, test } from "bun:test";
 import {
   NAMING_CONVENTION_DETECTOR,
   NamingConventionDetector,
-} from "@/detectors/naming-convention";
-import { SolidityParserService } from "@/services";
+} from "@/modules/analyser/detectors/naming-convention";
+import { SolidityParser } from "@/modules";
 import { Severity } from "@/types";
 
 describe("NamingConventionDetector", () => {
@@ -24,9 +24,7 @@ describe("NamingConventionDetector", () => {
 
   describe("description", () => {
     test("should return the correct detector description", () => {
-      expect(detector.description).toBe(
-        "Checks if Solidity naming conventions are followed"
-      );
+      expect(detector.description).toBe("Checks if Solidity naming conventions are followed");
     });
   });
 
@@ -41,7 +39,7 @@ describe("NamingConventionDetector", () => {
       const contract = `
       contract MyContract {}
       `;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(0);
@@ -51,7 +49,7 @@ describe("NamingConventionDetector", () => {
       const contract = `
       contract myContract {}
       `;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
@@ -67,7 +65,7 @@ describe("NamingConventionDetector", () => {
         event myEvent();
       }
       `;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
@@ -83,7 +81,7 @@ describe("NamingConventionDetector", () => {
         struct myStruct {}
       }
       `;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
@@ -99,7 +97,7 @@ describe("NamingConventionDetector", () => {
         enum myEnum {}
       }
       `;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
@@ -115,7 +113,7 @@ describe("NamingConventionDetector", () => {
         modifier MyModifier() {}
       }
       `;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
@@ -131,7 +129,7 @@ describe("NamingConventionDetector", () => {
         uint MyVariable;
       }
       `;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
@@ -147,7 +145,7 @@ describe("NamingConventionDetector", () => {
         uint l;
       }
       `;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
@@ -162,7 +160,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         uint public MyVariable;
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
@@ -179,7 +177,7 @@ describe("NamingConventionDetector", () => {
         string public symbol;
         uint8 public decimals;
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(0);
@@ -190,7 +188,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         uint public constant MY_CONSTANT;
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(0);
@@ -201,7 +199,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         uint private constant myConstant;
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
@@ -216,7 +214,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         uint private MY_Variable;
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
@@ -231,7 +229,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         uint private myVariable;
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(0);
@@ -242,7 +240,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         constructor() {}
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(0);
@@ -253,7 +251,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         function myFunction() internal {}
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations.length).toBe(0);
     });
@@ -263,7 +261,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         function MyFunction() internal {}
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations.length).toBe(1);
       const violation = violations[0];
@@ -277,7 +275,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         function _myFunction() internal {}
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations.length).toBe(0);
     });
@@ -287,7 +285,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         function echidna_myFunction() internal {}
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations.length).toBe(0);
     });
@@ -297,7 +295,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         function crytic_myFunction() internal {}
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations.length).toBe(0);
     });
@@ -307,7 +305,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         function myFunction(uint, uint) internal {}
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations.length).toBe(0);
     });
@@ -317,7 +315,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         function myFunction(uint MyParameter) internal {}
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations.length).toBe(1);
       const violation = violations[0];
@@ -331,7 +329,7 @@ describe("NamingConventionDetector", () => {
       contract MyContract {
         function myFunction(uint _myParameter) internal {}
       }`;
-      const parsedContract = SolidityParserService.parse(contract);
+      const parsedContract = SolidityParser.parse(contract);
       const violations = await detector.detect(parsedContract);
       expect(violations.length).toBe(0);
     });

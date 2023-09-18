@@ -1,12 +1,7 @@
 import { AbstractDetector } from "./abstract-detector";
 
-import { SolidityParserService } from "@/services";
-import {
-  Severity,
-  ParsedContract,
-  AnalysisConfig,
-  DetectorViolation,
-} from "@/types";
+import { SolidityParser } from "@/modules";
+import { Severity, ParsedContract, AnalyserConfig, DetectorViolation } from "@/types";
 
 export const NAMING_CONVENTION_DETECTOR = "naming-convention";
 
@@ -18,7 +13,7 @@ export class NamingConventionDetector implements AbstractDetector {
 
   async detect(
     parsedContract: ParsedContract,
-    config: AnalysisConfig = {}
+    config: AnalyserConfig = {}
   ): Promise<DetectorViolation[]> {
     const violations: DetectorViolation[] = [];
 
@@ -26,7 +21,7 @@ export class NamingConventionDetector implements AbstractDetector {
       violations.push({ target, name, convention });
     };
 
-    const contracts = SolidityParserService.getContracts(parsedContract);
+    const contracts = SolidityParser.getContracts(parsedContract);
     contracts.forEach((contract) => {
       const contractName = contract.name;
       if (!this.isCapWords(contractName)) {
@@ -34,21 +29,21 @@ export class NamingConventionDetector implements AbstractDetector {
       }
     });
 
-    const events = SolidityParserService.getEvents(contracts);
+    const events = SolidityParser.getEvents(contracts);
     events.forEach((event) => {
       if (!this.isCapWords(event.name)) {
         addViolation("event", event.name, "CapWords");
       }
     });
 
-    const structs = SolidityParserService.getStructs(contracts);
+    const structs = SolidityParser.getStructs(contracts);
     structs.forEach((struct) => {
       if (!this.isCapWords(struct.name)) {
         addViolation("struct", struct.name, "CapWords");
       }
     });
 
-    const functions = SolidityParserService.getFunctions(contracts);
+    const functions = SolidityParser.getFunctions(contracts);
     functions.forEach((function_) => {
       if (function_.isConstructor) return;
       if (!function_.name) return;
@@ -72,7 +67,7 @@ export class NamingConventionDetector implements AbstractDetector {
       });
     });
 
-    const variables = SolidityParserService.getStateVariables(contracts);
+    const variables = SolidityParser.getStateVariables(contracts);
     variables.forEach((variableDeclaration) => {
       variableDeclaration.variables.forEach((variable) => {
         if (!variable.name) return;
@@ -89,10 +84,7 @@ export class NamingConventionDetector implements AbstractDetector {
             addViolation("variable", variable.name, "UPPER_CASE");
           }
         } else {
-          if (
-            variable.visibility === "private" &&
-            this.isMixedCaseWithUnderscore(variable.name)
-          ) {
+          if (variable.visibility === "private" && this.isMixedCaseWithUnderscore(variable.name)) {
             return;
           } else if (this.isMixedCase(variable.name)) return;
           addViolation("variable", variable.name, "mixedCase");
@@ -100,14 +92,14 @@ export class NamingConventionDetector implements AbstractDetector {
       });
     });
 
-    const enums = SolidityParserService.getEnums(contracts);
+    const enums = SolidityParser.getEnums(contracts);
     enums.forEach((enum_) => {
       if (!this.isCapWords(enum_.name)) {
         addViolation("enum", enum_.name, "CapWords");
       }
     });
 
-    const modifiers = SolidityParserService.getModifiers(contracts);
+    const modifiers = SolidityParser.getModifiers(contracts);
     modifiers.forEach((modifier) => {
       if (!this.isMixedCase(modifier.name)) {
         addViolation("modifier", modifier.name, "mixedCase");

@@ -1,6 +1,6 @@
 import * as parser from "@solidity-parser/parser";
 
-import { AnalysisConfig } from "./config";
+import { AnalyserConfig } from "./config";
 import { Severity } from "./errors";
 
 export type ParsedContract = ReturnType<typeof parser.parse>;
@@ -38,8 +38,5 @@ export interface Detector {
    * @param config The configuration to use for the analysis.
    * @returns Violations of the
    */
-  detect(
-    code: ParsedContract,
-    config?: AnalysisConfig
-  ): Promise<DetectorViolation[]>;
+  detect(code: ParsedContract, config?: AnalyserConfig): Promise<DetectorViolation[]>;
 }

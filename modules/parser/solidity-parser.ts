@@ -16,7 +16,7 @@ import { ParsedContract } from "@/types";
 /**
  * A service for parsing Solidity code and files into an AST.
  */
-export class SolidityParserService {
+export class SolidityParser {
   /**
    * Parses Solidity code and returns the corresponding AST.
    * @param code The Solidity code to parse.

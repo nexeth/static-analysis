@@ -1,7 +1,7 @@
 import { ContractDefinition } from "@solidity-parser/parser/dist/src/ast-types";
 import { describe, expect, test } from "bun:test";
 
-import { SolidityParserService } from "../../services";
+import { SolidityParser } from "../../modules";
 
 import { TestContract } from "./../contracts";
 
@@ -10,7 +10,7 @@ const TEST_CONTRACT_FILE = "test/contracts/SolidityParserContract.sol";
 describe("SolidityParserService", () => {
   describe("parse", () => {
     test("should parse Solidity code and return the corresponding AST", () => {
-      const ast = SolidityParserService.parse(TestContract);
+      const ast = SolidityParser.parse(TestContract);
 
       expect(ast).toBeDefined();
       expect(ast.type).toBe("SourceUnit");
@@ -24,7 +24,7 @@ describe("SolidityParserService", () => {
 
   describe("parseFile", () => {
     test("should parse a Solidity file and return the corresponding AST", () => {
-      const ast = SolidityParserService.parseFile(TEST_CONTRACT_FILE);
+      const ast = SolidityParser.parseFile(TEST_CONTRACT_FILE);
 
       expect(ast).toBeDefined();
       expect(ast.type).toBe("SourceUnit");
@@ -38,9 +38,9 @@ describe("SolidityParserService", () => {
 
   describe("getContracts", () => {
     test("should return an array of all contract definitions in the given Solidity AST", () => {
-      const ast = SolidityParserService.parseFile(TEST_CONTRACT_FILE);
+      const ast = SolidityParser.parseFile(TEST_CONTRACT_FILE);
 
-      const contracts = SolidityParserService.getContracts(ast);
+      const contracts = SolidityParser.getContracts(ast);
 
       expect(contracts).toBeDefined();
       expect(contracts.length).toBeGreaterThan(0);
@@ -53,9 +53,9 @@ describe("SolidityParserService", () => {
 
   describe("getStateVariables", () => {
     test("should return an array of all state variables in the given Solidity AST", () => {
-      const ast = SolidityParserService.parseFile(TEST_CONTRACT_FILE);
-      const contracts = SolidityParserService.getContracts(ast);
-      const stateVariables = SolidityParserService.getStateVariables(contracts);
+      const ast = SolidityParser.parseFile(TEST_CONTRACT_FILE);
+      const contracts = SolidityParser.getContracts(ast);
+      const stateVariables = SolidityParser.getStateVariables(contracts);
       expect(stateVariables).toBeDefined();
       expect(stateVariables.length).toBeGreaterThan(0);
 
@@ -68,9 +68,9 @@ describe("SolidityParserService", () => {
 
   describe("getFunctions", () => {
     test("should return an array of all functions in the given Solidity AST", () => {
-      const ast = SolidityParserService.parseFile(TEST_CONTRACT_FILE);
-      const contracts = SolidityParserService.getContracts(ast);
-      const functions = SolidityParserService.getFunctions(contracts);
+      const ast = SolidityParser.parseFile(TEST_CONTRACT_FILE);
+      const contracts = SolidityParser.getContracts(ast);
+      const functions = SolidityParser.getFunctions(contracts);
 
       expect(functions).toBeDefined();
       expect(functions.length).toBeGreaterThan(0);
@@ -87,9 +87,9 @@ describe("SolidityParserService", () => {
 
   describe("getEvents", () => {
     test("should return an array of all events in the given Solidity AST", () => {
-      const ast = SolidityParserService.parseFile(TEST_CONTRACT_FILE);
-      const contracts = SolidityParserService.getContracts(ast);
-      const events = SolidityParserService.getEvents(contracts);
+      const ast = SolidityParser.parseFile(TEST_CONTRACT_FILE);
+      const contracts = SolidityParser.getContracts(ast);
+      const events = SolidityParser.getEvents(contracts);
       expect(events).toBeDefined();
       expect(events.length).toBeGreaterThan(0);
 
@@ -101,9 +101,9 @@ describe("SolidityParserService", () => {
 
   describe("getStructs", () => {
     test("should return an array of all structs in the given Solidity AST", () => {
-      const ast = SolidityParserService.parseFile(TEST_CONTRACT_FILE);
-      const contracts = SolidityParserService.getContracts(ast);
-      const structs = SolidityParserService.getStructs(contracts);
+      const ast = SolidityParser.parseFile(TEST_CONTRACT_FILE);
+      const contracts = SolidityParser.getContracts(ast);
+      const structs = SolidityParser.getStructs(contracts);
       expect(structs).toBeDefined();
       expect(structs.length).toBe(1);
 
@@ -115,9 +115,9 @@ describe("SolidityParserService", () => {
 
   describe("getEnums", () => {
     test("should return an array of all enums in the given Solidity AST", () => {
-      const ast = SolidityParserService.parseFile(TEST_CONTRACT_FILE);
-      const contracts = SolidityParserService.getContracts(ast);
-      const enums = SolidityParserService.getEnums(contracts);
+      const ast = SolidityParser.parseFile(TEST_CONTRACT_FILE);
+      const contracts = SolidityParser.getContracts(ast);
+      const enums = SolidityParser.getEnums(contracts);
       expect(enums).toBeDefined();
       expect(enums.length).toBeGreaterThan(0);
 
@@ -129,9 +129,9 @@ describe("SolidityParserService", () => {
 
   describe("getModifiers", () => {
     test("should return an array of all modifiers in the given Solidity AST", () => {
-      const ast = SolidityParserService.parseFile(TEST_CONTRACT_FILE);
-      const contracts = SolidityParserService.getContracts(ast);
-      const modifiers = SolidityParserService.getModifiers(contracts);
+      const ast = SolidityParser.parseFile(TEST_CONTRACT_FILE);
+      const contracts = SolidityParser.getContracts(ast);
+      const modifiers = SolidityParser.getModifiers(contracts);
       expect(modifiers).toBeDefined();
       expect(modifiers.length).toBeGreaterThan(0);
 
