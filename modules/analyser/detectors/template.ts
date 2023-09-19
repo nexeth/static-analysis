@@ -4,10 +4,10 @@ import { DetectorViolation, ParsedContracts, SeverityValue } from "@/types";
 
 export const TEMPLATE_ID = "unimplemented-function";
 
-export class UnimplementedFunctionDetector extends AbstractDetector {
+export class TemplateDetector extends AbstractDetector {
   public id = TEMPLATE_ID;
-  public title = "Unimplemented Function";
-  public description = "Detects unimplemented functions on derived contracts";
+  public title = "";
+  public description = "";
   public severity = SeverityValue.Informational;
 
   detect(
