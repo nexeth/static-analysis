@@ -2,7 +2,7 @@ import { AbstractDetector } from "./abstract-detector";
 
 import { DetectorViolation, ParsedContracts, SeverityValue } from "@/types";
 
-export const TEMPLATE_ID = "unimplemented-function";
+export const TEMPLATE_ID = "template-detector";
 
 export class TemplateDetector extends AbstractDetector {
   public id = TEMPLATE_ID;

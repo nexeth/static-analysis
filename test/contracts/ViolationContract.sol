@@ -36,4 +36,11 @@ contract ViolationContract is UnimplementedInterface {
     constructor(uint256 _O) {
         O = _O;
     }
+
+    // violate shift parameter mixup
+    function violateShiftParameterMixup() internal returns (uint a) {
+        assembly {
+            a := shr(a, 8)
+        }
+    }
 }
