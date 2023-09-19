@@ -147,4 +147,12 @@ export class SolidityParser {
       return inheritedContractNames.includes(node.name);
     });
   }
+
+  /**
+   * Check if the given function is a protected function.
+   * @param func The function to check.
+   */
+  public static isProtectedFunction(func: FunctionDefinition): boolean {
+    return func.modifiers.some((modifier) => ["onlyOwner", "onlyRole"].includes(modifier.name));
+  }
 }

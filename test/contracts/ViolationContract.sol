@@ -43,4 +43,8 @@ contract ViolationContract is UnimplementedInterface {
             a := shr(a, 8)
         }
     }
+
+    function suicidal() public {
+        selfdestruct(payable(address(0)));
+    }
 }
