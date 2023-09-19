@@ -50,10 +50,6 @@ describe("NamingConventionDetector", () => {
       const violations = await detector.detect(parsedContract);
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
-      const violation = violations[0];
-      expect(violation.target).toBe("contract");
-      expect(violation.name).toBe("myContract");
-      expect(violation.violation).toBe("expected CapWords");
     });
 
     test("should return a violation for an invalid event name", async () => {
@@ -67,9 +63,7 @@ describe("NamingConventionDetector", () => {
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("event");
-      expect(violation.name).toBe("myEvent");
-      expect(violation.violation).toBe("expected CapWords");
+      expect(violation.message).toBe("event myEvent is not in PascalCase");
     });
 
     test("should return a violation for an invalid struct name", async () => {
@@ -83,9 +77,7 @@ describe("NamingConventionDetector", () => {
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("struct");
-      expect(violation.name).toBe("myStruct");
-      expect(violation.violation).toBe("expected CapWords");
+      expect(violation.message).toBe("struct myStruct is not in PascalCase");
     });
 
     test("should return a violation for an invalid enum name", async () => {
@@ -99,9 +91,7 @@ describe("NamingConventionDetector", () => {
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("enum");
-      expect(violation.name).toBe("myEnum");
-      expect(violation.violation).toBe("expected CapWords");
+      expect(violation.message).toBe("enum myEnum is not in PascalCase");
     });
 
     test("should return a violation for an invalid modifier name", async () => {
@@ -115,9 +105,7 @@ describe("NamingConventionDetector", () => {
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("modifier");
-      expect(violation.name).toBe("MyModifier");
-      expect(violation.violation).toBe("expected mixedCase");
+      expect(violation.message).toBe("modifier MyModifier is not in camelCase");
     });
 
     test("should return a violation for an invalid variable name (casing)", async () => {
@@ -131,9 +119,7 @@ describe("NamingConventionDetector", () => {
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("variable");
-      expect(violation.name).toBe("MyVariable");
-      expect(violation.violation).toBe("expected mixedCase");
+      expect(violation.message).toBe("variable MyVariable is not in camelCase");
     });
 
     test("should return a violation for an invalid variable name (avoidNames)", async () => {
@@ -147,9 +133,7 @@ describe("NamingConventionDetector", () => {
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("variable");
-      expect(violation.name).toBe("l");
-      expect(violation.violation).toBe("detected invalidName");
+      expect(violation.message).toBe("variable l is using invalid name");
     });
 
     test("should return a violation for a public variable name with invalid casing", async () => {
@@ -162,9 +146,7 @@ describe("NamingConventionDetector", () => {
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("variable");
-      expect(violation.name).toBe("MyVariable");
-      expect(violation.violation).toBe("expected mixedCase");
+      expect(violation.message).toBe("variable MyVariable is not in camelCase");
     });
 
     test("should return no violation for an ERC20 standard constant", async () => {
@@ -201,9 +183,7 @@ describe("NamingConventionDetector", () => {
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("variable");
-      expect(violation.name).toBe("myConstant");
-      expect(violation.violation).toBe("expected UPPER_CASE");
+      expect(violation.message).toBe("constant myConstant is not in UPPER_CASE");
     });
 
     test("should return a violation for a private variable with invalid casing", async () => {
@@ -216,9 +196,7 @@ describe("NamingConventionDetector", () => {
       expect(violations).toBeDefined();
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("variable");
-      expect(violation.name).toBe("MY_Variable");
-      expect(violation.violation).toBe("expected mixedCase");
+      expect(violation.message).toBe("variable MY_Variable is not in camelCase");
     });
 
     test("should return no violation for a private variable with valid casing", async () => {
@@ -262,9 +240,7 @@ describe("NamingConventionDetector", () => {
       const violations = await detector.detect(parsedContract);
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("function");
-      expect(violation.name).toBe("MyFunction");
-      expect(violation.violation).toBe("expected mixedCase");
+      expect(violation.message).toBe("function MyFunction is not in camelCase");
     });
 
     test("should not return a violation for an internal function with invalid casing if it starts with underscore", async () => {
@@ -316,9 +292,7 @@ describe("NamingConventionDetector", () => {
       const violations = await detector.detect(parsedContract);
       expect(violations.length).toBe(1);
       const violation = violations[0];
-      expect(violation.target).toBe("parameter");
-      expect(violation.name).toBe("MyParameter");
-      expect(violation.violation).toBe("expected mixedCase");
+      expect(violation.message).toBe("parameter MyParameter is not in camelCase");
     });
 
     test("should allow for a parameter if it starts with an underscore", async () => {

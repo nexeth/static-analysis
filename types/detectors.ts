@@ -8,17 +8,9 @@ export type ParsedContracts = ReturnType<typeof parser.parse>;
 
 export interface DetectorViolation {
   /**
-   * The type of the target of the violation.
+   * The message to display for the violation
    */
-  target: string;
-  /**
-   * The name of the target of the violation.
-   */
-  name: string;
-  /**
-   * Details on the convention that was violated. This is used to inform the error message
-   */
-  violation: string;
+  message: string;
   /**
    * The node in the AST that caused the violation.
    */

@@ -7,7 +7,7 @@ interface UnimplementedInterface {
 
 contract ViolationContract is UnimplementedInterface {
     // State variables with naming convention violations
-    address public Address_variable; // Should use mixedCase
+    address public Address_variable; // Should use camelCase
     uint256 public _underscore_variable; // Should not start with an underscore
     uint256 public O; // Should not use single letter names
 
@@ -18,7 +18,7 @@ contract ViolationContract is UnimplementedInterface {
     // Enum with naming convention violation
     enum DaysOfWeek {
         Monday,
-        tuesday // Should use CapWords
+        tuesday // Should use PascalCase
     }
 
     // Function with naming convention violation

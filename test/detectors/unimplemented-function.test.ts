@@ -75,9 +75,7 @@ describe("UnimplementedFunctionDetector", () => {
       const parsedContract = SolidityParser.parse(code);
       const violations = await detector.detect(parsedContract);
       expect(violations).toHaveLength(1);
-      expect(violations[0].target).toBe("function");
-      expect(violations[0].name).toBe("f2");
-      expect(violations[0].violation).toBe("unimplemented function");
+      expect(violations[0].message).toBe("function f2 is not implemented");
     });
 
     test("should not return a violation if a state variable overrides a function", async () => {

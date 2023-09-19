@@ -42,9 +42,7 @@ export class Logger {
 
   static violation({
     violation: {
-      target,
-      name,
-      violation,
+      message,
       node: { loc },
       contract,
     },
@@ -60,7 +58,7 @@ export class Logger {
     const clickableLocation = `\x1b]8;;file://${filePath}\x1b\\${fileWithLocation}\x1b]8;;\x1b\\`; // ANSI escape codes for hyperlink
 
     this.logger.error(
-      `[${severity.toUpperCase()}] - {${detectorId}} ${target} ${name} ${violation} in ${contract} at ${clickableLocation}
+      `[${severity.toUpperCase()}] - {${detectorId}} ${message} in ${contract} at ${clickableLocation}
 `
     );
   }

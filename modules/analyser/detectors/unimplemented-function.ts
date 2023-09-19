@@ -24,7 +24,11 @@ export class UnimplementedFunctionDetector extends AbstractDetector {
     contracts.forEach((contract) => {
       const functions = this.detectUnimplementedFunction(contract, contracts);
       functions.forEach((func) => {
-        addViolation("function", func.name ?? "unknown", "unimplemented function", func, contract.name);
+        addViolation({
+          message: `function ${func.name} is not implemented`,
+          node: func,
+          contract: contract.name,
+        });
       });
     });
 

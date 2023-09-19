@@ -27,7 +27,11 @@ export class VarReadUsingThisDetector extends AbstractDetector {
           SolidityParser.visit(statement, {
             Identifier: (node) => {
               if (node.name === "this") {
-                addViolation("function", func.name ?? "unknown", "function reads this", func, contract.name);
+                addViolation({
+                  message: `function ${func.name} reads variable using \`this\``,
+                  node,
+                  contract: contract.name,
+                });
               }
             },
           });
