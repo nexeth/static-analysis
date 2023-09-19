@@ -59,6 +59,7 @@ describe("SuicidalDetector", () => {
       const parsedContract = SolidityParser.parse(code);
       const violations = await detector.detect(parsedContract);
       expect(violations).toHaveLength(1);
+      expect(violations[0].message).toBe("function contains an unprotected selfdestruct");
     });
 
     test("should not return a violation for a contract with a protected selfdestruct", async () => {

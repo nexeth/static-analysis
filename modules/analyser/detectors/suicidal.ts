@@ -14,24 +14,27 @@ export class SuicidalDetector extends AbstractDetector {
   detect(code: ParsedContracts): Promise<DetectorViolation[]> {
     const { violations, addViolation } = this._violations();
 
-    SolidityParser.visit(code, {
-      FunctionDefinition: (node) => {
-        if (node.body) {
-          SolidityParser.visit(node.body, {
-            FunctionCall: (callNode) => {
-              if (callNode.expression.type === "Identifier" && callNode.expression.name === "selfdestruct") {
-                if (SolidityParser.isProtectedFunction(node)) return;
+    const contracts = SolidityParser.getContracts(code);
+    contracts.forEach((contract) => {
+      SolidityParser.visit(contract, {
+        FunctionDefinition: (node) => {
+          if (node.body) {
+            SolidityParser.visit(node.body, {
+              FunctionCall: (callNode) => {
+                if (callNode.expression.type === "Identifier" && callNode.expression.name === "selfdestruct") {
+                  if (SolidityParser.isProtectedFunction(node)) return;
 
-                addViolation({
-                  message: "function contains an unprotected selfdestruct",
-                  node,
-                  contract: "contract",
-                });
-              }
-            },
-          });
-        }
-      },
+                  addViolation({
+                    message: "function contains an unprotected selfdestruct",
+                    node,
+                    contract: contract.name,
+                  });
+                }
+              },
+            });
+          }
+        },
+      });
     });
 
     return Promise.resolve(violations);
