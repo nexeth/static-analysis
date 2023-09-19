@@ -4,17 +4,25 @@ import { detectors } from "./detectors";
 
 import { AnalyserConfig, DetectorViolation, ParsedContracts, Severity } from "@/types";
 
+const baseDir = process.cwd();
+
 /**
  * A service for detecting vulnerabilities in Solidity code.
  */
 export class SolidityAnalyser {
   private config: AnalyserConfig;
+  private files: string[] = [];
 
   constructor(config: AnalyserConfig = {}) {
     this.config = config;
   }
 
-  async analyse(code: ParsedContracts): Promise<void> {
+  /**
+   * Analyzes the given Solidity code and returns a map of violations
+   * @param code The parsed AST of the Solidity code to analyze.
+   * @returns A map of severity to violations.
+   */
+  async analyse(code: ParsedContracts, file: string): Promise<Record<Severity, DetectorViolation[]>> {
     const violations: Record<Severity, DetectorViolation[]> = {
       high: [],
       medium: [],
@@ -30,11 +38,12 @@ export class SolidityAnalyser {
         violations[detector.severity].push(..._violations);
 
         _violations.forEach((violation) => {
-          Logger.error(
-            `[${detector.severity.toUpperCase()}] - [${detector.id}]- ${violation.target} ${violation.name} - ${
-              violation.violation
-            }`
-          );
+          Logger.violation({
+            violation,
+            detectorId: detector.id,
+            severity: detector.severity,
+            fileOptions: { file, baseDir },
+          });
         });
       })
     );
@@ -46,12 +55,14 @@ export class SolidityAnalyser {
 
     Logger.info(
       `Results: Detected ${totalViolations} violations
-    High: ${violations.high.length}
-    Medium: ${violations.medium.length}
-    Low: ${violations.low.length}
-    Informational: ${violations.informational.length}
-    Optimization: ${violations.optimization.length}
+    HIGH: ${violations.high.length}
+    MEDIUM: ${violations.medium.length}
+    LOW: ${violations.low.length}
+    INFORMATION: ${violations.informational.length}
+    OPTIMIZATION: ${violations.optimization.length}
     `
     );
+
+    return violations;
   }
 }

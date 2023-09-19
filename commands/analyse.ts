@@ -5,5 +5,5 @@ export const analyse = async (file: string, config: AnalyserConfig = {}) => {
   Logger.info(`Analyzing ${file}`);
   const parsedContracts = SolidityParser.parseFile(file);
   const analyser = new SolidityAnalyser(config);
-  await analyser.analyse(parsedContracts);
+  await analyser.analyse(parsedContracts, file);
 };

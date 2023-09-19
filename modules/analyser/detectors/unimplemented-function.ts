@@ -7,7 +7,7 @@ import { DetectorViolation, ParsedContracts, SeverityValue } from "@/types";
 
 export const UNIMPLEMENTED_FUNCTION_DETECTOR = "unimplemented-function";
 
-export class UnimplementedFunctionDetector implements AbstractDetector {
+export class UnimplementedFunctionDetector extends AbstractDetector {
   public id = UNIMPLEMENTED_FUNCTION_DETECTOR;
   public title = "Unimplemented Function";
   public description = "Detects unimplemented functions on derived contracts";
@@ -17,18 +17,14 @@ export class UnimplementedFunctionDetector implements AbstractDetector {
     code: ParsedContracts
     // config: AnalyserConfig = {}
   ): Promise<DetectorViolation[]> {
-    const violations: DetectorViolation[] = [];
-
-    const addViolation = (target: string, name: string, violation: string) => {
-      violations.push({ target, name, violation });
-    };
+    const { violations, addViolation } = this._violations();
 
     const contracts = SolidityParser.getContracts(code);
 
     contracts.forEach((contract) => {
       const functions = this.detectUnimplementedFunction(contract, contracts);
       functions.forEach((func) => {
-        addViolation("function", func.name ?? "unknown", "unimplemented");
+        addViolation("function", func.name ?? "unknown", "unimplemented function", func, contract.name);
       });
     });
 

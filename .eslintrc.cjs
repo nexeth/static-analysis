@@ -3,11 +3,14 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended",
- "plugin:import/recommended",
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:eslint-comments/recommended",
-    "prettier",],
+    "prettier",
+  ],
   overrides: [
     {
       env: { node: true },

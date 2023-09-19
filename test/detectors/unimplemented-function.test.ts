@@ -77,7 +77,7 @@ describe("UnimplementedFunctionDetector", () => {
       expect(violations).toHaveLength(1);
       expect(violations[0].target).toBe("function");
       expect(violations[0].name).toBe("f2");
-      expect(violations[0].violation).toBe("unimplemented");
+      expect(violations[0].violation).toBe("unimplemented function");
     });
 
     test("should not return a violation if a state variable overrides a function", async () => {

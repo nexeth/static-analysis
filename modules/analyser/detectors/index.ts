@@ -9,3 +9,4 @@ export const Detectors = {
 };
 
 export const detectors = Object.values(Detectors);
+export type DetectorClass = (typeof detectors)[number];

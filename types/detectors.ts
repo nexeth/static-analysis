@@ -1,6 +1,7 @@
 import * as parser from "@solidity-parser/parser";
+import { BaseASTNode } from "@solidity-parser/parser/dist/src/ast-types";
 
-import { AnalyserConfig } from "./config";
+import { AnalyserConfig } from "./analyser";
 import { Severity } from "./errors";
 
 export type ParsedContracts = ReturnType<typeof parser.parse>;
@@ -15,9 +16,17 @@ export interface DetectorViolation {
    */
   name: string;
   /**
-   * The convention that was violated. This is used to inform the error message
+   * Details on the convention that was violated. This is used to inform the error message
    */
   violation: string;
+  /**
+   * The node in the AST that caused the violation.
+   */
+  node: BaseASTNode;
+  /**
+   * The contract that the violation occurred in.
+   */
+  contract: string;
 }
 
 export interface Detector {
