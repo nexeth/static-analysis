@@ -1,4 +1,5 @@
 import { ARBITRARY_SEND_ETH_DETECTOR, ArbitrarySendEthDetector } from "./arbitray-send-eth";
+import { ASSEMBLY_DETECTOR, AssemblyDetector } from "./assembly";
 import { NAMING_CONVENTION_DETECTOR, NamingConventionDetector } from "./naming-convention";
 import { SHIFT_PARAMETER_MIXUP, ShiftParameterMixupDetector } from "./shift-parameter-mixup";
 import { SUICIDAL, SuicidalDetector } from "./suicidal";
@@ -12,6 +13,7 @@ export const Detectors = {
   [VAR_READ_USING_THIS]: VarReadUsingThisDetector,
   [SHIFT_PARAMETER_MIXUP]: ShiftParameterMixupDetector,
   [SUICIDAL]: SuicidalDetector,
+  [ASSEMBLY_DETECTOR]: AssemblyDetector,
 };
 
 export const detectors = Object.values(Detectors);

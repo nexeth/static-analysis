@@ -15,6 +15,9 @@ export class TemplateDetector extends AbstractDetector {
     code: ParsedContracts
     // config: AnalyserConfig = {}
   ): Promise<DetectorViolation[]> {
-    return Promise.resolve([]);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { violations, addViolation } = this._violations();
+
+    return Promise.resolve(violations);
   }
 }
