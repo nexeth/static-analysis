@@ -1,5 +1,3 @@
-import { ExpressionStatement } from "@solidity-parser/parser/dist/src/ast-types";
-
 import { AbstractDetector } from "./abstract-detector";
 
 import { SolidityParser } from "@/modules";
@@ -25,18 +23,14 @@ export class VarReadUsingThisDetector extends AbstractDetector {
     contracts.forEach((contract) => {
       const functions = SolidityParser.getFunctions([contract]);
       functions.map((func) => {
-        console.log(func);
         func.body?.statements.forEach((statement) => {
-          if (statement.type === "ExpressionStatement") {
-            const { expression } = statement as ExpressionStatement;
-            if (!expression) return;
-            // TODO determine other operations that may be able to use a this statement
-            if (expression.type !== "BinaryOperation") return;
-            if (expression.right.type !== "MemberAccess") return;
-            if (expression.right.expression.type !== "Identifier") return;
-
-            addViolation("function", func.name ?? "unknown", "function reads this", func, contract.name);
-          }
+          SolidityParser.visit(statement, {
+            Identifier: (node) => {
+              if (node.name === "this") {
+                addViolation("function", func.name ?? "unknown", "function reads this", func, contract.name);
+              }
+            },
+          });
         });
       });
     });

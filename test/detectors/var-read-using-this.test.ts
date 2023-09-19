@@ -60,7 +60,7 @@ describe("VarReadUsingThisDetector", () => {
       expect(violations).toHaveLength(0);
     });
 
-    test("should return a violation for a contract containing a call using this", async () => {
+    test("should return a violation for a contract containing a call using this in an expression", async () => {
       const code = `
                 contract Test {
                 uint256 public foo;
@@ -69,6 +69,23 @@ describe("VarReadUsingThisDetector", () => {
                 }
                 }
             `;
+
+      const parsedContract = SolidityParser.parse(code);
+      const violations = await detector.detect(parsedContract);
+      expect(violations).toHaveLength(1);
+    });
+
+    test("should return a violation for a contract containing a call using this in a conditional", async () => {
+      const code = `
+                    contract Test {
+                    uint256 public foo;
+                    function bar() public {
+                        if (this.foo == 1) {
+                            foo = 2;
+                        }
+                    }
+                    }
+                `;
 
       const parsedContract = SolidityParser.parse(code);
       const violations = await detector.detect(parsedContract);
