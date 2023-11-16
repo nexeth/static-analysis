@@ -58,7 +58,7 @@ export class SolidityAnalyser {
     HIGH: ${violations.high.length}
     MEDIUM: ${violations.medium.length}
     LOW: ${violations.low.length}
-    INFORMATION: ${violations.informational.length}
+    INFORMATIONAL: ${violations.informational.length}
     OPTIMIZATION: ${violations.optimization.length}
     `
     );

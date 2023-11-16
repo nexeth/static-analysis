@@ -63,5 +63,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 - **_Slither_**: Original inspiration for this tool.
-  Bun: The Bun runtime environment and package manager for JavaScript and TypeScript apps.
 - **_Solidity_**: The programming language for Ethereum smart contracts.
