@@ -3,7 +3,7 @@ import { describe, expect, test } from "bun:test";
 import { SolidityParser } from "@/modules";
 import {
   MultipleConstructorsDetector,
-  MULTIPLE_CONSTRUCTORS,
+  MULTIPLE_CONSTRUCTORS_DETECTOR,
 } from "@/modules/analyser/detectors/multiple-constructors";
 import { SeverityValue } from "@/types";
 
@@ -12,7 +12,7 @@ describe("MultipleConstructorsDetector", () => {
 
   describe("id", () => {
     test("should return the correct detector ID", () => {
-      expect(detector.id).toBe(MULTIPLE_CONSTRUCTORS);
+      expect(detector.id).toBe(MULTIPLE_CONSTRUCTORS_DETECTOR);
     });
   });
 

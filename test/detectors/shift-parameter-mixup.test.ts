@@ -1,7 +1,10 @@
 import { describe, expect, test } from "bun:test";
 
 import { SolidityParser } from "@/modules";
-import { SHIFT_PARAMETER_MIXUP, ShiftParameterMixupDetector } from "@/modules/analyser/detectors/shift-parameter-mixup";
+import {
+  SHIFT_PARAMETER_MIXUP_DETECTOR,
+  ShiftParameterMixupDetector,
+} from "@/modules/analyser/detectors/shift-parameter-mixup";
 import { SeverityValue } from "@/types";
 
 describe("ShiftParameterMixupDetector", () => {
@@ -9,7 +12,7 @@ describe("ShiftParameterMixupDetector", () => {
 
   describe("id", () => {
     test("should return the correct detector ID", () => {
-      expect(detector.id).toBe(SHIFT_PARAMETER_MIXUP);
+      expect(detector.id).toBe(SHIFT_PARAMETER_MIXUP_DETECTOR);
     });
   });
 

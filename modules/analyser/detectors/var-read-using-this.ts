@@ -3,10 +3,10 @@ import { AbstractDetector } from "./abstract-detector";
 import { SolidityParser } from "@/modules";
 import { DetectorViolation, ParsedContracts, SeverityValue } from "@/types";
 
-export const VAR_READ_USING_THIS = "var-read-using-this";
+export const VAR_READ_USING_THIS_DETECTOR = "var-read-using-this";
 
 export class VarReadUsingThisDetector extends AbstractDetector {
-  public id = VAR_READ_USING_THIS;
+  public id = VAR_READ_USING_THIS_DETECTOR;
   public title = "Contract reads its own variable using `this`";
   public description =
     "The contract reads its own variable using `this`, adding overhead of an unnecessary STATICCALL.";

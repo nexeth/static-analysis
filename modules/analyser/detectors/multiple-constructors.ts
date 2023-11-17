@@ -3,19 +3,15 @@ import { AbstractDetector } from "./abstract-detector";
 import { SolidityParser } from "@/modules";
 import { DetectorViolation, ParsedContracts, SeverityValue } from "@/types";
 
-export const MULTIPLE_CONSTRUCTORS = "multiple-constructors";
+export const MULTIPLE_CONSTRUCTORS_DETECTOR = "multiple-constructors";
 
 export class MultipleConstructorsDetector extends AbstractDetector {
-  public id = MULTIPLE_CONSTRUCTORS;
+  public id = MULTIPLE_CONSTRUCTORS_DETECTOR;
   public title = "Multiple Constructors";
   public description = "Detected multiple constructor definitions in the same contract";
   public severity = SeverityValue.High;
 
-  detect(
-    code: ParsedContracts
-    // config: AnalyserConfig = {}
-  ): Promise<DetectorViolation[]> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  detect(code: ParsedContracts): Promise<DetectorViolation[]> {
     const { violations, addViolation } = this._violations();
 
     const contracts = SolidityParser.getContracts(code);

@@ -3,10 +3,10 @@ import { AbstractDetector } from "./abstract-detector";
 import { SolidityParser } from "@/modules";
 import { DetectorViolation, ParsedContracts, SeverityValue } from "@/types";
 
-export const SHIFT_PARAMETER_MIXUP = "incorrect-shift";
+export const SHIFT_PARAMETER_MIXUP_DETECTOR = "incorrect-shift";
 
 export class ShiftParameterMixupDetector extends AbstractDetector {
-  public id = SHIFT_PARAMETER_MIXUP;
+  public id = SHIFT_PARAMETER_MIXUP_DETECTOR;
   public title = "Incorrect shift in assembly.";
   public description = "The order of parameters in a shift instruction is incorrect.";
   public severity = SeverityValue.High;

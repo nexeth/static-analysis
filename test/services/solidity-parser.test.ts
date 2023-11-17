@@ -158,4 +158,52 @@ describe("SolidityParserService", () => {
       expect(inheritedContracts.length).toBeGreaterThan(0);
     });
   });
+
+  describe("isErc20", () => {
+    test("should return true if the given contract is ERC20", () => {
+      const code = `
+      contract ERC20Token {
+        // Events
+        event Transfer(address indexed from, address indexed to, uint256 value);
+        event Approval(address indexed owner, address indexed spender, uint256 value);
+    
+        // ERC20 Standard Functions
+        function totalSupply() public view returns (uint256) {}
+    
+        function balanceOf(address _owner) public view returns (uint256 balance) {}
+    
+        function transfer(address _to, uint256 _value) public returns (bool success) {}
+    
+        function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {}
+    
+        function approve(address _spender, uint256 _value) public returns (bool success) {}
+    
+        function allowance(address _owner, address _spender) public view returns (uint256 remaining) {}
+    
+        // Additional functions and variables can be added here
+        // ...
+    }`;
+
+      const ast = SolidityParser.parse(code);
+      const contracts = SolidityParser.getContracts(ast);
+      const contract = contracts.find((_contract) => _contract.name === "ERC20Token")!;
+      expect(contract).toBeDefined();
+      const isErc20 = SolidityParser.isErc20(contract);
+      expect(isErc20).toBe(true);
+    });
+
+    test("should return false if the given contract is not ERC20", () => {
+      const code = `
+      contract Test {
+        function test() public {}
+      }`;
+
+      const ast = SolidityParser.parse(code);
+      const contracts = SolidityParser.getContracts(ast);
+      const contract = contracts.find((_contract) => _contract.name === "Test")!;
+      expect(contract).toBeDefined();
+      const isErc20 = SolidityParser.isErc20(contract);
+      expect(isErc20).toBe(false);
+    });
+  });
 });

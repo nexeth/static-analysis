@@ -151,8 +151,31 @@ export class SolidityParser {
   /**
    * Check if the given function is a protected function.
    * @param func The function to check.
+   * @returns True if the function is a protected function, false otherwise.
    */
   public static isProtectedFunction(func: FunctionDefinition): boolean {
     return func.modifiers.some((modifier) => ["onlyOwner", "onlyRole"].includes(modifier.name));
+  }
+
+  /**
+   * Check if the contract is an ERC20 standard contract
+   * @param contract The contract to check.
+   * @returns True if the contract is an ERC20 standard contract, false otherwise.
+   */
+  public static isErc20(contract: ContractDefinition): boolean {
+    const mandatoryFunctions = ["totalSupply", "balanceOf", "transfer", "transferFrom", "approve", "allowance"];
+
+    const mandatoryEvents = ["Transfer", "Approval"];
+
+    const functions = this.getFunctions([contract]);
+    const events = this.getEvents([contract]);
+
+    const hasAllFunctions = mandatoryFunctions.every((funcName) =>
+      functions.some((func) => func.name === funcName && func.visibility === "public")
+    );
+
+    const hasAllEvents = mandatoryEvents.every((eventName) => events.some((event) => event.name === eventName));
+
+    return hasAllFunctions && hasAllEvents;
   }
 }
